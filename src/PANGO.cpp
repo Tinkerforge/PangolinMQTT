@@ -203,7 +203,7 @@ void PANGO::dumphex(const uint8_t* mem, size_t len,uint8_t W) {
 }
 
 #if PANGO_DEBUG
-void PANGO::dump(){ 
+void PANGO::dump(){
     PANGO_PRINT4("DUMP ALL %d POOL BLOX\n",mb::pool.size());
     for(auto & p:mb::pool) PANGO_PRINT4("%08X\n",p);
 

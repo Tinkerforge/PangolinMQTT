@@ -51,9 +51,9 @@ void Packet::_build(bool hold){
         rl.push_back(encodedByte);
     } while ( X > 0 );
     sx+=1+rl.size();
-    
+
     ADFP snd_buf=m.data=(static_cast<ADFP>(malloc(sx))); // Not a memleak - will be free'd when TCP ACKs it.
-    
+
     *snd_buf++=_controlcode;
     for(auto const& r:rl) *snd_buf++=r;
     if(_hasId) snd_buf=_poke16(snd_buf,_id);
@@ -118,7 +118,7 @@ void Packet::_shortGarbage(){
     PANGO::_txPacket(mb(p,true));
 }
 
-uint8_t* Packet::_stringblock(const std::string& s){ 
+uint8_t* Packet::_stringblock(const std::string& s){
     size_t sz=s.size();
     _bs+=sz+2;
     uint8_t* p=static_cast<uint8_t*>(malloc(sz));
@@ -157,7 +157,7 @@ ConnectPacket::ConnectPacket(): Packet(CONNECT,10){
 PublishPacket::PublishPacket(const char* topic, uint8_t qos, bool retain, const uint8_t* payload, size_t length, bool dup,uint16_t givenId):
     _topic(topic),_qos(qos),_retain(retain),_length(length),_dup(dup),_givenId(givenId),Packet(PUBLISH) {
         if(length < PANGO::LIN->getMaxPayloadSize()){
-            _begin=[this]{ 
+            _begin=[this]{
                 _stringblock(CSTR(_topic));
                 _bs+=_length;
                 byte flags=_retain;
@@ -170,7 +170,7 @@ PublishPacket::PublishPacket(const char* topic, uint8_t qos, bool retain, const 
                 }
                 _controlcode|=flags;
             };
-            _end=[this,payload](uint8_t* p,mb* base){ 
+            _end=[this,payload](uint8_t* p,mb* base){
                 uint8_t* p2=_qos ? _poke16(p,_id):p;
                 memcpy(p2,payload,_length);
                 base->qos=_qos;

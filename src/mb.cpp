@@ -70,7 +70,7 @@ void mb::ack(){
         if((int) frag < 100) return; // some arbitrarily ridiculous max numberof _fragments
         data=frag; // reset data pointer to FIRST fragment, so whole block is freed
         _deriveQos(); // recover original QOS from base fragment
-    } 
+    }
 //    PANGO_PRINT("**** PROTOCOL ACK MB %08X TYPE %02X L=%d I=%d Q=%d F=%08X R=%d\n",data,data[0],len,id,qos,frag,retries);
     if(!(isPub() && qos)) clear();
 //    else PANGO_PRINT("HELD MB %08X TYPE %02X L=%d I=%d Q=%d F=%08X R=%d\n",data,data[0],len,id,qos,frag,retries);

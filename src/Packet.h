@@ -42,7 +42,7 @@ class Packet {
     friend class PangolinMQTT;
     protected:
         static  uint16_t         _nextId;
-                uint16_t         _id=0; 
+                uint16_t         _id=0;
                 uint8_t          _hdrAdjust;
                 bool             _hasId=false;
                 uint8_t          _controlcode;
@@ -61,7 +61,7 @@ class Packet {
                 uint8_t*         _poke16(uint8_t* p,uint16_t u);
                 void             _shortGarbage();
                 uint8_t*         _stringblock(const std::string& s);
-            
+
     public:
         static  PANGO_PACKET_MAP  _outbound;
         static  PANGO_PACKET_MAP  _inbound;
@@ -95,7 +95,7 @@ class PubrelPacket: public Packet {
 };
 class PubcompPacket: public Packet {
     public:
-        PubcompPacket(uint16_t id): Packet(PUBCOMP) { _idGarbage(id); }  
+        PubcompPacket(uint16_t id): Packet(PUBCOMP) { _idGarbage(id); }
 };
 class SubscribePacket: public Packet {
         std::string     _topic;
