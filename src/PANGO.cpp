@@ -170,6 +170,8 @@ void PANGO::_saveFragment(mb m){
 }
 
 void PANGO::_send(mb m){
+    if(m.data == NULL)
+        return;
     PANGO_PRINT2("----> TX %s %d bytes\n",PANGO::getPktName(m.data[0]),m.len);
     PANGO_DUMP3(m.data,m.len);
     TCP->add((const char*) m.data,m.len); // ESPAsyncTCP is WRONG on this, it should be a uint8_t*
